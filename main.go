@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/spf13/cobra"
 )
@@ -14,7 +15,7 @@ func main() {
 	}
 
 	// Add Task CLI command
-	var addsCmd = &cobra.Command{
+	var AddTaskCmd = &cobra.Command{
 		Use:   "add [description]",
 		Short: "Add new task",
 		Args:  cobra.MinimumNArgs(1),
@@ -28,7 +29,29 @@ func main() {
 			fmt.Printf("Task added successfully(ID: %d)\n", task.ID)
 		},
 	}
-	rootCmd.AddCommand(addsCmd)
+
+	// Update Task Command
+	var updateTaskCmd = &cobra.Command{
+		Use:   "update [id] [description]",
+		Short: "Update an existing task's description",
+		Args:  cobra.MinimumNArgs(2),
+		Run: func(cmd *cobra.Command, args []string) {
+			id, err := strconv.Atoi(args[0])
+			if err != nil {
+				fmt.Println("Invalid task ID: ", err)
+				return
+			}
+			description := args[1]
+			task, err := UpdateTask(id, description)
+			if err != nil {
+				fmt.Println("Error updating task: ", err)
+				return
+			}
+			fmt.Printf("Task updated successfully (ID: %d)\n", task.ID)
+		},
+	}
+
+	rootCmd.AddCommand(AddTaskCmd, updateTaskCmd)
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
