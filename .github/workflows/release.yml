@@ -26,9 +26,14 @@ jobs:
 
       - name: Set OS-specific Environment Variables
         run: |
+          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+            echo "GOOS=linux" >> $GITHUB_ENV
+          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            echo "GOOS=darwin" >> $GITHUB_ENV
+          fi
           echo "GOARCH=amd64" >> $GITHUB_ENV
         shell: bash
-        if: runner.os == 'Linux' || runner.os == 'macOS'
+        if: runner.os != 'Windows'
 
       - name: Set OS-specific Environment Variables for Windows
         run: |
@@ -41,6 +46,10 @@ jobs:
         run: |
           mkdir -p dist
           go build -o dist/task-cli-${GOOS}-${GOARCH}
+        shell: bash
+
+      - name: List dist directory
+        run: ls -la dist
         shell: bash
 
       - name: Upload binary
