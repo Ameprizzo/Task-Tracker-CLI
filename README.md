@@ -6,7 +6,6 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Ameprizzo/task-tracker-cli)
 ![GitHub issues](https://img.shields.io/github/issues/Ameprizzo/task-tracker-cli)
 
-
 A simple and efficient command-line task tracker built with Go. This tool allows you to manage your tasks seamlessly from the terminal, with all tasks persisted in a JSON file for easy access and management.
 
 ## Table of Contents
