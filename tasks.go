@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"time"
 )
@@ -13,6 +14,13 @@ type Task struct {
 	Status      string `json:"status"`
 	CreatedAt   string `json:"created_at"`
 	UpdatedAt   string `json:"updated_at"`
+}
+
+// GetFormattedTime returns the current time formatted as "2006-01-02 15:04:05"
+func GetFormattedTime() string {
+	currentTime := time.Now()
+	formattedTime := currentTime.Format("2006-01-02 15:04:05")
+	return formattedTime
 }
 
 // Get all tasks from the JSON file
@@ -55,14 +63,13 @@ func AddTask(description string) (Task, error) {
 	}
 
 	id := len(tasks) + 1
-	currentTime := time.Now()
-	formattedTime := currentTime.Format("2006-01-02 15:04:05")
+	currentTime := GetFormattedTime()
 	newTask := Task{
 		ID:          id,
 		Description: description,
 		Status:      "todo",
-		CreatedAt:   formattedTime,
-		UpdatedAt:   formattedTime,
+		CreatedAt:   currentTime,
+		UpdatedAt:   currentTime,
 	}
 	tasks = append(tasks, newTask)
 	err = SaveTasks(tasks)
@@ -70,4 +77,27 @@ func AddTask(description string) (Task, error) {
 		return Task{}, err
 	}
 	return newTask, nil
+}
+
+// UpdateTask updates the description of an existing task
+func UpdateTask(id int, description string) (Task, error) {
+	tasks, err := GetTasks()
+	if err != nil {
+		return Task{}, err
+	}
+
+	// Find the task by ID and update it
+	for i, task := range tasks {
+		if task.ID == id {
+			tasks[i].Description = description
+			tasks[i].UpdatedAt = GetFormattedTime()
+
+			err = SaveTasks(tasks)
+			if err != nil {
+				return Task{}, err
+			}
+			return tasks[i], nil
+		}
+	}
+	return Task{}, fmt.Errorf("Task with ID %d not found", id)
 }
