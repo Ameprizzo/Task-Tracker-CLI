@@ -51,7 +51,27 @@ func main() {
 		},
 	}
 
-	rootCmd.AddCommand(AddTaskCmd, updateTaskCmd)
+	// Delete Task Command
+	var deleteTaskCmd = &cobra.Command{
+		Use:   "delete [id]",
+		Short: "Delete a task by its ID",
+		Args:  cobra.MinimumNArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			id, err := strconv.Atoi(args[0])
+			if err != nil {
+				fmt.Println("Invalid task ID: ", err)
+				return
+			}
+			err = DeleteTask(id)
+			if err != nil {
+				fmt.Println("Error deleting task: ", err)
+				return
+			}
+			fmt.Printf("Task deleted successfully (ID: %d)\n", id)
+		},
+	}
+
+	rootCmd.AddCommand(AddTaskCmd, updateTaskCmd, deleteTaskCmd)
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
