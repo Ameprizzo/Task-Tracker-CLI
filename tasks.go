@@ -46,3 +46,26 @@ func SaveTasks(tasks []Task) error {
 	return nil
 
 }
+
+// AddTask adds a new task to the task list
+func AddTask(description string) (Task, error) {
+	tasks, err := GetTasks()
+	if err != nil {
+		return Task{}, err
+	}
+
+	id := len(tasks) + 1
+	newTask := Task{
+		ID:          id,
+		Description: description,
+		Status:      "todo",
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
+	}
+	tasks = append(tasks, newTask)
+	err = SaveTasks(tasks)
+	if err != nil {
+		return Task{}, err
+	}
+	return newTask, nil
+}
