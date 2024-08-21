@@ -1,5 +1,12 @@
 # Task Tracker CLI
 
+![Go Report Card](https://goreportcard.com/badge/github.com/Ameprizzo/task-tracker-cli)
+[![GoDoc](https://godoc.org/github.com/Ameprizzo/task-tracker-cli?status.svg)](https://pkg.go.dev/github.com/Ameprizzo/task-tracker-cli)
+![License](https://img.shields.io/github/license/Ameprizzo/task-tracker-cli)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Ameprizzo/task-tracker-cli)
+![GitHub issues](https://img.shields.io/github/issues/Ameprizzo/task-tracker-cli)
+
+
 A simple and efficient command-line task tracker built with Go. This tool allows you to manage your tasks seamlessly from the terminal, with all tasks persisted in a JSON file for easy access and management.
 
 ## Table of Contents
@@ -255,7 +262,7 @@ Contributions are welcome! If you'd like to improve this project, follow these s
     ```bash
     git push origin feature/YourFeatureName
     ```
-    
+
 7. **Submit a Pull Request:** Go to the original repository and click the 'New Pull Request' button to submit your changes for review.
 
 ## License
