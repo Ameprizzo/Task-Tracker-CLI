@@ -101,3 +101,20 @@ func UpdateTask(id int, description string) (Task, error) {
 	}
 	return Task{}, fmt.Errorf("Task with ID %d not found", id)
 }
+
+// DeleteTask deletes a task by its ID
+func DeleteTask(id int) error {
+	tasks, err := GetTasks()
+	if err != nil {
+		return err
+	}
+
+	//Find the task by its ID and delete it
+	for i, task := range tasks {
+		if task.ID == id {
+			tasks = append(tasks[:i], tasks[i+1:]...)
+			return SaveTasks(tasks)
+		}
+	}
+	return fmt.Errorf("Task with ID %d not found", id)
+}
