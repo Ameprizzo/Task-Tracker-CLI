@@ -71,7 +71,27 @@ func main() {
 		},
 	}
 
-	rootCmd.AddCommand(AddTaskCmd, updateTaskCmd, deleteTaskCmd)
+	// Mark Task As In-Progress Command
+	var MarkTaskAsInProgressCmd = &cobra.Command{
+		Use:   "mark-in-progress [id]",
+		Short: "Mark a task as in-progress",
+		Args:  cobra.MinimumNArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			id, err := strconv.Atoi(args[0])
+			if err != nil {
+				fmt.Println("Invalid task ID: ", err)
+				return
+			}
+			task, err := MarkTaskAsInProgress(id)
+			if err != nil {
+				fmt.Println("Error marking task as in progress: ", err)
+				return
+			}
+			fmt.Printf("Task marked as in progress (ID: %d):", task.ID)
+		},
+	}
+
+	rootCmd.AddCommand(AddTaskCmd, updateTaskCmd, deleteTaskCmd, MarkTaskAsInProgressCmd)
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
