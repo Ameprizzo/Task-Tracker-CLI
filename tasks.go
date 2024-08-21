@@ -32,3 +32,17 @@ func GetTasks() ([]Task, error) {
 	return tasks, nil
 
 }
+
+// SaveTasks saves tasks to the JSON file
+func SaveTasks(tasks []Task) error {
+	data, err := json.MarshalIndent(tasks, "", " ")
+	if err != nil {
+		return err
+	}
+	err = os.WriteFile("tasks.json", data, 0644)
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
