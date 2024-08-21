@@ -8,7 +8,10 @@ import (
 )
 
 func main() {
-	var rootCmd = &cobra.Command{Use: "task-cli"}
+	var rootCmd = &cobra.Command{
+		Use:   "task-cli",
+		Short: "task-cli is a CLI task tracker",
+	}
 
 	// Add Task CLI command
 	var addsCmd = &cobra.Command{
