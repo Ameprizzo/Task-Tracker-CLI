@@ -91,7 +91,27 @@ func main() {
 		},
 	}
 
-	rootCmd.AddCommand(AddTaskCmd, updateTaskCmd, deleteTaskCmd, MarkTaskAsInProgressCmd)
+	// Mark Task As Done Command
+	var MarkTaskAsDoneCmd = &cobra.Command{
+		Use:   "mark-done [id]",
+		Short: "Mark a task as done",
+		Args:  cobra.MinimumNArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			id, err := strconv.Atoi(args[0])
+			if err != nil {
+				fmt.Println("Invalid task ID:", err)
+				return
+			}
+			task, err := MarkTaskAsDone(id)
+			if err != nil {
+				fmt.Println("Error marking task as done:", err)
+				return
+			}
+			fmt.Printf("Task marked as done (ID: %d)\n", task.ID)
+		},
+	}
+
+	rootCmd.AddCommand(AddTaskCmd, updateTaskCmd, deleteTaskCmd, MarkTaskAsInProgressCmd, MarkTaskAsDoneCmd)
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
