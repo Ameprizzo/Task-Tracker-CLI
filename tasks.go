@@ -162,3 +162,24 @@ func MarkTaskAsDone(id int) (Task, error) {
 	}
 	return Task{}, fmt.Errorf("Task with ID %d not found", id)
 }
+
+// ListTasks lists all tasks, optionally filtered by status
+func ListTasks(status string) ([]Task, error) {
+	tasks, err := GetTasks()
+	if err != nil {
+		return nil, err
+	}
+
+	// If status is provided, filter tasks by status
+	if status != "" {
+		var filteredTasks []Task
+		for _, task := range tasks {
+			if task.Status == status {
+				filteredTasks = append(filteredTasks, task)
+			}
+		}
+		return filteredTasks, nil
+	}
+
+	return tasks, nil
+}
