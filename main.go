@@ -111,7 +111,33 @@ func main() {
 		},
 	}
 
-	rootCmd.AddCommand(AddTaskCmd, updateTaskCmd, deleteTaskCmd, MarkTaskAsInProgressCmd, MarkTaskAsDoneCmd)
+	// List Tasks Command
+	var ListTasksCmd = &cobra.Command{
+		Use:   "list [status]",
+		Short: "List all tasks, optionally filtered by status (todo, in-progress, done)",
+		Args:  cobra.MaximumNArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			status := ""
+			if len(args) > 0 {
+				status = args[0]
+			}
+			tasks, err := ListTasks(status)
+			if err != nil {
+				fmt.Println("Error listing tasks:", err)
+				return
+			}
+			if len(tasks) == 0 {
+				fmt.Println("No tasks found")
+				return
+			}
+			for _, task := range tasks {
+				fmt.Printf("ID: %d, Description: %s, Status: %s, CreatedAt: %s, UpdatedAt: %s\n",
+					task.ID, task.Description, task.Status, task.CreatedAt, task.UpdatedAt)
+			}
+		},
+	}
+
+	rootCmd.AddCommand(AddTaskCmd, updateTaskCmd, deleteTaskCmd, MarkTaskAsInProgressCmd, MarkTaskAsDoneCmd, ListTasksCmd)
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
