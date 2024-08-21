@@ -87,7 +87,7 @@ func main() {
 				fmt.Println("Error marking task as in progress: ", err)
 				return
 			}
-			fmt.Printf("Task marked as in progress (ID: %d):", task.ID)
+			fmt.Printf("Task marked as in progress (ID: %d)\n", task.ID)
 		},
 	}
 
