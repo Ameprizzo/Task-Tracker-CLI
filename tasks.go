@@ -8,11 +8,11 @@ import (
 
 // Task struct represents a task with necessary fields
 type Task struct {
-	ID          int       `json:"id"`
-	Description string    `json:"description"`
-	Status      string    `json:"status"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	ID          int    `json:"id"`
+	Description string `json:"description"`
+	Status      string `json:"status"`
+	CreatedAt   string `json:"created_at"`
+	UpdatedAt   string `json:"updated_at"`
 }
 
 // Get all tasks from the JSON file
@@ -55,12 +55,14 @@ func AddTask(description string) (Task, error) {
 	}
 
 	id := len(tasks) + 1
+	currentTime := time.Now()
+	formattedTime := currentTime.Format("2006-01-02 15:04:05")
 	newTask := Task{
 		ID:          id,
 		Description: description,
 		Status:      "todo",
-		CreatedAt:   time.Now(),
-		UpdatedAt:   time.Now(),
+		CreatedAt:   formattedTime,
+		UpdatedAt:   formattedTime,
 	}
 	tasks = append(tasks, newTask)
 	err = SaveTasks(tasks)
