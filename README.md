@@ -166,7 +166,7 @@ All tasks are stored in a `tasks.json` file located in the root directory of the
 Contributions are welcome! If you'd like to improve this project, follow these steps:
 
  1. **Fork the Repository:** Click the 'Fork' button on the top right of this page to create a copy of this repository on your GitHub account.
- 2. ** Clone Your Fork:** 
+ 2. **Clone Your Fork:** 
 ```bash
 git clone https://github.com/yourusername/task-tracker-cli.git
 ```
