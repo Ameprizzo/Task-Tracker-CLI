@@ -19,8 +19,8 @@ func parseTaskID(input string) (int, error) {
 
 func main() {
 	var rootCmd = &cobra.Command{
-		Use:   "task-cli",
-		Short: "task-cli is a CLI task tracker",
+		Use: "task-tracker",
+		// Short: "task-cli is a CLI task tracker",
 	}
 
 	// Add Task CLI command

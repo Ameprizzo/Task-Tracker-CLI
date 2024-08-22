@@ -28,7 +28,7 @@ func GetFormattedTime() string {
 func statusColor(status string) string {
 	switch status {
 	case "todo":
-		return "5"
+		return "9"
 	case "in-progress":
 		return "202"
 	case "done":
