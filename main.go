@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/charmbracelet/lipgloss"
 	"github.com/spf13/cobra"
 )
 
@@ -127,7 +128,12 @@ func main() {
 				return
 			}
 			if len(tasks) == 0 {
-				fmt.Println("No tasks found")
+				fmt.Println(
+					lipgloss.NewStyle().
+						Bold(true).
+						Padding(1, 0).
+						Foreground(lipgloss.Color("#FFCC66")).
+						Render("No tasks found"))
 				return
 			}
 			for _, task := range tasks {
