@@ -61,7 +61,11 @@ func main() {
 				fmt.Println("Error updating task: ", err)
 				return
 			}
-			fmt.Printf("Task updated successfully (ID: %d)\n", task.ID)
+			formattedId := lipgloss.NewStyle().
+				Bold(true).
+				Foreground(lipgloss.Color("#FFCC66")).
+				Render(fmt.Sprintf("(ID: %d)", task.ID))
+			fmt.Printf("\nTask updated successfully: %s\n\n", formattedId)
 		},
 	}
 
@@ -81,7 +85,11 @@ func main() {
 				fmt.Println("Error deleting task: ", err)
 				return
 			}
-			fmt.Printf("Task deleted successfully (ID: %d)\n", id)
+			formattedId := lipgloss.NewStyle().
+				Bold(true).
+				Foreground(lipgloss.Color("#FFCC66")).
+				Render(fmt.Sprintf("(ID: %d)", id))
+			fmt.Printf("\nTask deleted successfully: %s\n\n", formattedId)
 		},
 	}
 
@@ -101,7 +109,12 @@ func main() {
 				fmt.Println("Error marking task as in-progress:", err)
 				return
 			}
-			fmt.Printf("Task marked as in-progress (ID: %d)\n", task.ID)
+			formattedId := lipgloss.NewStyle().
+				Bold(true).
+				Foreground(lipgloss.Color("#FFCC66")).
+				Render(fmt.Sprintf("(ID: %d)", task.ID))
+			fmt.Printf("\nTask marked as in-progress: %s\n\n", formattedId)
+
 		},
 	}
 
@@ -121,7 +134,11 @@ func main() {
 				fmt.Println("Error marking task as done:", err)
 				return
 			}
-			fmt.Printf("Task marked as done (ID: %d)\n", task.ID)
+			formattedId := lipgloss.NewStyle().
+				Bold(true).
+				Foreground(lipgloss.Color("#FFCC66")).
+				Render(fmt.Sprintf("(ID: %d)", task.ID))
+			fmt.Printf("\nTask marked as done: %s\n\n", formattedId)
 		},
 	}
 
@@ -150,8 +167,27 @@ func main() {
 				return
 			}
 			for _, task := range tasks {
-				fmt.Printf("ID: %d, Description: %s, Status: %s, CreatedAt: %s, UpdatedAt: %s\n",
-					task.ID, task.Description, task.Status, task.CreatedAt, task.UpdatedAt)
+				formattedId := lipgloss.NewStyle().
+					Bold(true).
+					Foreground(lipgloss.Color("#FFCC66")).
+					Render(fmt.Sprintf("%d", task.ID))
+				formattedStatus := lipgloss.NewStyle().
+					Bold(true).
+					Foreground(lipgloss.Color(statusColor(task.Status))).
+					Render(string(task.Status))
+				formattedDescription := lipgloss.NewStyle().
+					Bold(true).
+					Foreground(lipgloss.Color(statusColor(task.Status))).
+					Render(string(task.Description))
+
+				taskStyle := lipgloss.NewStyle().
+					Border(lipgloss.NormalBorder(), false, false, true, false).
+					BorderForeground(lipgloss.Color("#3C3C3C")).
+					Render(fmt.Sprintf("ID: %s, Description: %s, Status: %s, CreatedAt: %s, UpdatedAt: %s\n",
+						formattedId, formattedDescription, formattedStatus, task.CreatedAt, task.UpdatedAt))
+				fmt.Println()
+				fmt.Println(taskStyle)
+
 			}
 		},
 	}

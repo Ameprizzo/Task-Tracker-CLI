@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"time"
+
+	"github.com/charmbracelet/lipgloss"
 )
 
 // Task struct represents a task with necessary fields
@@ -26,7 +28,7 @@ func GetFormattedTime() string {
 func statusColor(status string) string {
 	switch status {
 	case "todo":
-		return "#3C3C3C"
+		return "5"
 	case "in-progress":
 		return "202"
 	case "done":
@@ -169,6 +171,13 @@ func ListTasks(status string) ([]Task, error) {
 				filteredTasks = append(filteredTasks, task)
 			}
 		}
+		fmt.Println()
+		fmt.Println(
+			lipgloss.NewStyle().
+				Bold(true).
+				Foreground(lipgloss.Color("#FFCC66")).
+				MarginBottom(1).
+				Render(fmt.Sprintf("Tasks (%s)", status)))
 		return filteredTasks, nil
 	}
 
