@@ -79,15 +79,15 @@ func main() {
 		Run: func(cmd *cobra.Command, args []string) {
 			id, err := strconv.Atoi(args[0])
 			if err != nil {
-				fmt.Println("Invalid task ID: ", err)
+				fmt.Println("Invalid task ID:", err)
 				return
 			}
-			task, err := MarkTaskAsInProgress(id)
+			task, err := UpdateTaskStatus(id, "in-progress")
 			if err != nil {
-				fmt.Println("Error marking task as in progress: ", err)
+				fmt.Println("Error marking task as in-progress:", err)
 				return
 			}
-			fmt.Printf("Task marked as in progress (ID: %d)\n", task.ID)
+			fmt.Printf("Task marked as in-progress (ID: %d)\n", task.ID)
 		},
 	}
 
@@ -102,7 +102,7 @@ func main() {
 				fmt.Println("Invalid task ID:", err)
 				return
 			}
-			task, err := MarkTaskAsDone(id)
+			task, err := UpdateTaskStatus(id, "done")
 			if err != nil {
 				fmt.Println("Error marking task as done:", err)
 				return
