@@ -9,6 +9,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
+func parseTaskID(input string) (int, error) {
+	id, err := strconv.Atoi(input)
+	if err != nil {
+		return 0, fmt.Errorf("%q is not a valid number", input)
+	}
+	return id, nil
+}
+
 func main() {
 	var rootCmd = &cobra.Command{
 		Use:   "task-cli",
@@ -27,7 +35,12 @@ func main() {
 				fmt.Println("Error adding task:", err)
 				return
 			}
-			fmt.Printf("Task added successfully(ID: %d)\n", task.ID)
+			style := lipgloss.NewStyle().
+				Bold(true).
+				Foreground(lipgloss.Color("#FFCC66"))
+
+			formattedId := style.Render(fmt.Sprintf("(ID: %d)", task.ID))
+			fmt.Printf("\nTask added successfully: %s\n\n", formattedId)
 		},
 	}
 
@@ -37,7 +50,7 @@ func main() {
 		Short: "Update an existing task's description",
 		Args:  cobra.MinimumNArgs(2),
 		Run: func(cmd *cobra.Command, args []string) {
-			id, err := strconv.Atoi(args[0])
+			id, err := parseTaskID(args[0])
 			if err != nil {
 				fmt.Println("Invalid task ID: ", err)
 				return
@@ -58,7 +71,7 @@ func main() {
 		Short: "Delete a task by its ID",
 		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			id, err := strconv.Atoi(args[0])
+			id, err := parseTaskID(args[0])
 			if err != nil {
 				fmt.Println("Invalid task ID: ", err)
 				return
@@ -78,7 +91,7 @@ func main() {
 		Short: "Mark a task as in-progress",
 		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			id, err := strconv.Atoi(args[0])
+			id, err := parseTaskID(args[0])
 			if err != nil {
 				fmt.Println("Invalid task ID:", err)
 				return
@@ -98,7 +111,7 @@ func main() {
 		Short: "Mark a task as done",
 		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			id, err := strconv.Atoi(args[0])
+			id, err := parseTaskID(args[0])
 			if err != nil {
 				fmt.Println("Invalid task ID:", err)
 				return

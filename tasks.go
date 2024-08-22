@@ -23,6 +23,19 @@ func GetFormattedTime() string {
 	return formattedTime
 }
 
+func statusColor(status string) string {
+	switch status {
+	case "todo":
+		return "#3C3C3C"
+	case "in-progress":
+		return "202"
+	case "done":
+		return "#04B575"
+	default:
+		return "#3C3C3C"
+	}
+}
+
 // Get all tasks from the JSON file
 func GetTasks() ([]Task, error) {
 	file, err := os.ReadFile("tasks.json")
