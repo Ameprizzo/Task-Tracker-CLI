@@ -39,7 +39,7 @@ A simple and efficient command-line task tracker built with Go. This tool allows
 
 ## Prerequisites
 
-- **Go**: You need to have Go installed on your system.
+- **Go**: You need to have Go `go1.22.6` or above installed on your system.
   - **Installation**: Download and install Go from the official website: [golang.org/dl](https://golang.org/dl/).
   - **Verify Installation**:
 
@@ -50,7 +50,7 @@ A simple and efficient command-line task tracker built with Go. This tool allows
     You should see output similar to:
 
     ```bash
-    go version go1.16.3 darwin/amd64
+    go version go1.22.6 linux/amd64
     ```
 
 ## Installation
