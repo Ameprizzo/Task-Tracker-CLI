@@ -119,38 +119,16 @@ func DeleteTask(id int) error {
 	return fmt.Errorf("Task with ID %d not found", id)
 }
 
-// MarkTaskAsInProgress marks a task as "in-progress"
-func MarkTaskAsInProgress(id int) (Task, error) {
+// UpdateTaskStatus updates the status of a task and returns the updated task.
+func UpdateTaskStatus(id int, newStatus string) (Task, error) {
 	tasks, err := GetTasks()
 	if err != nil {
 		return Task{}, err
 	}
 
-	// Find the task by ID and update its status
 	for i, task := range tasks {
 		if task.ID == id {
-			tasks[i].Status = "in-progress"
-			tasks[i].UpdatedAt = GetFormattedTime()
-
-			err = SaveTasks(tasks)
-			if err != nil {
-				return Task{}, err
-			}
-			return tasks[i], nil
-		}
-	}
-	return Task{}, fmt.Errorf("Task with ID %d not found", id)
-}
-
-// MarkTaskAsDone marks a task as "done"
-func MarkTaskAsDone(id int) (Task, error) {
-	tasks, err := GetTasks()
-	if err != nil {
-		return Task{}, err
-	}
-	for i, task := range tasks {
-		if task.ID == id {
-			tasks[i].Status = "done"
+			tasks[i].Status = newStatus
 			tasks[i].UpdatedAt = GetFormattedTime()
 
 			err = SaveTasks(tasks)
