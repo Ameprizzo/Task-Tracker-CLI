@@ -24,6 +24,7 @@ A simple and efficient command-line task tracker built with Go. This tool allows
 - [Data Storage](#data-storage)
 - [Contributing](#contributing)
 - [License](#license)
+- [Project](#project)
 
 ---
 
@@ -262,11 +263,15 @@ Contributions are welcome! If you'd like to improve this project, follow these s
     git push origin feature/YourFeatureName
     ```
 
-7. **Submit a Pull Request:** Go to the original repository and click the 'New Pull Request' button to submit your changes for review.
+ 7. **Submit a Pull Request:** Go to the original repository and click the 'New Pull Request' button to submit your changes for review.
 
 ## License
 
 This project is licensed under the MIT License.
+
+## Project
+This is a begginer project from [Roadmap.sh](https://roadmap.sh/)
+The project url: [Project URL](https://roadmap.sh/projects/task-tracker)
 
 ## Contact
 
