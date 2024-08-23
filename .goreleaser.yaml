@@ -44,7 +44,7 @@ builds:
         goarch: arm
 
 release:
-  draft: true
+  draft: false
 
 archives:
   - id: archive_noncgo
@@ -52,17 +52,18 @@ archives:
     format: zip
     files:
       - LICENSE.md
-      - CHANGELOG.md
+      - CHANGELOG.m
+      - README.md
 
 checksum:
-  name_template: 'checksums.txt'
+  name_template: "checksums.txt"
 
 snapshot:
-  name_template: '{{ incpatch .Version }}-next'
+  name_template: "{{ incpatch .Version }}-next"
 
 changelog:
   sort: asc
   filters:
     exclude:
-      - '^examples:'
-      - '^ui:'
+      - "^examples:"
+      - "^ui:"
