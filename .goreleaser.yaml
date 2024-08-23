@@ -52,7 +52,7 @@ archives:
     format: zip
     files:
       - LICENSE.md
-      - CHANGELOG.m
+      - CHANGELOG.md
       - README.md
 
 checksum:
